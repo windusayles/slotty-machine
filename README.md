@@ -1,7 +1,5 @@
 # A slotty game
-A simple slot machine game for my Burning Man camp.
-
-![Slots](imagenotfound)
+A simple slot machine game for my Burning Man camp.  Credit for the base of this Pixi work goes to [asiryk](https://github.com/asiryk/slot-game), which I forked, but I needed a repo I could make private.
 
 ### [Live Demo](https://windusayles.github.io/slotty-machine/ "Slut Machine")
 
