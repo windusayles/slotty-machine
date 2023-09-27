@@ -2,9 +2,10 @@ import * as PIXI from 'pixi.js';
 import Loader from './Loader';
 import PlayButton from './PlayButton';
 import Background from './Background';
-import ReelsContainer from './ReelsContainer';
+import ReelsContainer, { WinLines } from './ReelsContainer';
 import Scoreboard from './Scoreboard';
 import VictoryScreen from './VictoryScreen';
+import WinLineScreen from './WinLineScreen';
 
 export default class Game {
     public app: PIXI.Application;
@@ -12,6 +13,7 @@ export default class Game {
     private reelsContainer: ReelsContainer;
     private scoreboard: Scoreboard;
     private victoryScreen: VictoryScreen;
+    private winLineScreen: WinLineScreen;
 
     constructor() {
         this.app = new PIXI.Application({ width: 1590, height: 1380 });
@@ -25,6 +27,17 @@ export default class Game {
         this.createReels();
         this.createScoreboard();
         this.createVictoryScreen();
+        // this.createWinLineScreen({
+        //     top: 1,
+        //     middle: 1,
+        //     bottom: 1,
+        //     left: 1,
+        //     center: 1,
+        //     right: 1,
+        //     backSlash: 1,
+        //     slash: 1,
+        //     winTotal: 0,
+        // });
     }
 
     private createScene() {
@@ -52,6 +65,11 @@ export default class Game {
         this.app.stage.addChild(this.victoryScreen.container);
     }
 
+    private createWinLineScreen(winResult: WinLines) {
+        this.winLineScreen = new WinLineScreen(this.app, winResult);
+        this.app.stage.addChild(this.winLineScreen.container);
+    }
+
     handleStart() {
         this.scoreboard.decrement();
         this.playBtn.setDisabled();
@@ -59,14 +77,12 @@ export default class Game {
             .then(this.processSpinResult.bind(this));
     }
 
-    private processSpinResult(isWin: number) {
-        // this method needs to accept more complex scenarios, not just win or lose (true/false)
-        if (isWin) {
-            // increment by how much?
-            let multiplier = isWin;
-
-            this.scoreboard.increment(multiplier);
+    private processSpinResult(spinResult: WinLines) {
+        if (spinResult.winTotal) {
+            this.scoreboard.increment(spinResult.winTotal);
             this.victoryScreen.show();
+            // add a highlight for each win line
+            this.createWinLineScreen(spinResult);
         }
 
         if (!this.scoreboard.outOfMoney) this.playBtn.setEnabled();

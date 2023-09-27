@@ -1,6 +1,20 @@
 import * as PIXI from 'pixi.js';
 import Reel from './Reel';
 
+
+export interface WinLines {
+    top: number;
+    middle: number;
+    bottom: number;
+    left: number;
+    center: number;
+    right: number;
+    backSlash: number;
+    slash: number;
+    winTotal: number;
+    [key: string]: number;
+}
+
 export default class ReelsContainer {
     public readonly reels: Array<Reel> = [];
     public readonly container: PIXI.Container;
@@ -20,14 +34,15 @@ export default class ReelsContainer {
     }
 
     async spin() {
-        // Overall time of spinning = shiftingDelay * this.reels.length
+        // Overall time of spinning = shiftingDelay * reelsLen
         //
         const shiftingDelay = 500;
         const start = Date.now();
         const reelsToSpin = [...this.reels];
+        const reelsLen = this.reels.length;
         
         for await (let value of this.infiniteSpinning(reelsToSpin)) {
-            const shiftingWaitTime = (this.reels.length - reelsToSpin.length + 1) * shiftingDelay;
+            const shiftingWaitTime = (reelsLen - reelsToSpin.length + 1) * shiftingDelay;
             
             if (Date.now() >= start + shiftingWaitTime) {
                 reelsToSpin.shift();
@@ -35,19 +50,6 @@ export default class ReelsContainer {
 
             if (!reelsToSpin.length) break;
         }
-
-        // reel.sprites[2] - Middle visible symbol of the reel
-        // we can check for multiple win conditions, and return if any are true, OR set different weights for certain wins, and display the total.
-        // checkForWin needs to return 0 if no wins,
-        let winTotal = 0;
-
-        // the map returns an array of the 3rd item in each of three vertical reels,
-        // 3rd because 1st is offscreen.
-        winTotal += this.checkForWin(this.reels.map(reel => reel.sprites[2]));
-
-        // a win from top or bottom row counts for half, same as all vertical wins
-        winTotal += (this.checkForWin(this.reels.map(reel => reel.sprites[1])));
-        winTotal += (this.checkForWin(this.reels.map(reel => reel.sprites[3])));
 
         // lose the first item bc it's offscreen
         const onScreenReels = this.reels.map(reel => {
@@ -57,19 +59,41 @@ export default class ReelsContainer {
             }
             return newArray;
         })
-        // add both diagonals manually
-        onScreenReels.push([this.reels[0].sprites[1], this.reels[1].sprites[2], this.reels[2].sprites[3]]);
-        onScreenReels.push([this.reels[0].sprites[3], this.reels[1].sprites[2], this.reels[2].sprites[1]]);
+        // create and diagonals if we have square grid
+        if (reelsLen === this.reels[0].sprites.length - 1 && reelsLen % 2 === 1) {
+            const backSlash = [], slashDiag = [];
+            for (let i = 0; i < reelsLen; i++) {
+                backSlash.push(this.reels[i].sprites[i+1]);
+                slashDiag.push(this.reels[reelsLen-1-i].sprites[i + 1]);
+            }
+            onScreenReels.push(backSlash, slashDiag);
+        }
 
-        winTotal += (this.checkForWin(onScreenReels[0]));
-        winTotal += (this.checkForWin(onScreenReels[1]));
-        winTotal += (this.checkForWin(onScreenReels[2]));
-        winTotal += (this.checkForWin(onScreenReels[3]));
-        winTotal += (this.checkForWin(onScreenReels[4]));
-        console.log(winTotal);
+        const winLines: WinLines = {
+            top: 0,
+            middle: 0,
+            bottom: 0,
+            left: 0,
+            center: 0,
+            right: 0,
+            backSlash: 0,
+            slash: 0,
+            winTotal: 0,
+        };
+        const lineOrder = ['top', 'middle', 'bottom', 'left', 'center', 'right', 'backSlash', 'slash']
+        
+        for (let i = 0; i < reelsLen; i++) {
+            winLines[lineOrder[i]] += this.checkForWin(this.reels.map(reel => reel.sprites[i +1]));
+        }
+        for (let i = 0; i < onScreenReels.length; i++) {
+            winLines[lineOrder[3 + i]] += this.checkForWin(onScreenReels[i]);
+        }
+        console.log({winLines})
+        for (const entry of lineOrder) {
+            winLines.winTotal += winLines[entry];
+        }
 
-        return winTotal;
-        // return this.checkForWin(this.reels.map(reel => reel.sprites[2]));
+        return winLines;
     }
 
     private async* infiniteSpinning(reelsToSpin: Array<Reel>) {
@@ -86,11 +110,8 @@ export default class ReelsContainer {
         const combination: Set<string> = new Set();
         symbols.forEach(symbol => combination.add(symbol.texture.textureCacheIds[0].split('.')[0]));
 
-        // all match, so combo size is 1, and does not have wild card bc all 3 wild card
-        // if (combination.size === 1 && !combination.has('SYM1')) return 0;
-
-        // all wild card win is doubled
-        if (combination.size === 1 && !combination.has('SYM1')) return 2;
+        // all three wild card is now TOO wild, no points
+        if (combination.size === 1 && !combination.has('SYM1')) return 0;
 
         return combination.size === 2 && combination.has('SYM1') ? 1 : 0;
     }
