@@ -1,20 +1,23 @@
-const path = require("path");
-const CopyPlugin = require("copy-webpack-plugin");
-const HTMLPlugin = require("html-webpack-plugin");
-const IS_DEV_MODE = process.argv.reduce((acc, arg) => acc || arg.includes("development"), false);
+const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
+const HTMLPlugin = require('html-webpack-plugin');
+const IS_DEV_MODE = process.argv.reduce(
+  (acc, arg) => acc || arg.includes('development'),
+  false
+);
 
-const BUILD_PATH = path.resolve("dist");
+const BUILD_PATH = path.resolve('dist');
 
 module.exports = {
-  devtool: IS_DEV_MODE && "cheap-module-source-map",
-  entry: "./src/index.ts",
+  devtool: IS_DEV_MODE && 'cheap-module-source-map',
+  entry: './src/index.ts',
   output: {
     path: BUILD_PATH,
-    filename: "[name].[contenthash:8].js",
+    filename: '[name].[contenthash:8].js',
     clean: true,
   },
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: ['.ts', '.js'],
   },
   module: {
     rules: getLoaders(),
@@ -32,7 +35,7 @@ function getOptimizations() {
   return {
     minimize: !IS_DEV_MODE,
     splitChunks: {
-      chunks: "all",
+      chunks: 'all',
     },
     runtimeChunk: {
       name: (entrypoint: any) => `runtime-${entrypoint.name}`,
@@ -44,7 +47,7 @@ function getLoaders() {
   return [
     {
       test: /\.tsx?$/,
-      loader: "ts-loader",
+      loader: 'ts-loader',
       exclude: /node_modules/,
     },
   ];
@@ -52,12 +55,12 @@ function getLoaders() {
 
 function getPlugins() {
   return [
-    new HTMLPlugin({ template: "./src/index.html" }),
+    new HTMLPlugin({ template: './src/index.html' }),
     new CopyPlugin({
       patterns: [
-        { from: "./src/public/", to: "public/" },
-        { from: "./src/styles/", to: "styles/" },
-        { from: "./src/assets/", to: "assets/" },
+        { from: './src/public/', to: 'public/' },
+        { from: './src/styles/', to: 'styles/' },
+        { from: './src/assets/', to: 'assets/' },
       ],
     }),
   ];

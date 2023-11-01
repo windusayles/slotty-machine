@@ -1,17 +1,24 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* background-image: url('../assets/saloonGlow.jpg'); */
-    /* background: rgb(96, 142, 197); */
-    background: linear-gradient(180deg, rgb(30, 26, 165) 0%, rgb(233, 57, 210) 50%, rgb(30, 26, 165) 100%);
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-image: url('../assets/saloonGlow.jpg'); */
+  /* background: rgb(96, 142, 197); */
+  background: linear-gradient(
+    180deg,
+    rgb(30, 26, 165) 0%,
+    rgb(233, 57, 210) 50%,
+    rgb(30, 26, 165) 100%
+  );
 }
 
-h1, p {
-    color: rgb(240, 240, 240);
+h1,
+p {
+  color: rgb(240, 240, 240);
 }

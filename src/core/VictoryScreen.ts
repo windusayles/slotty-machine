@@ -1,56 +1,56 @@
 import * as PIXI from 'pixi.js';
 
 export default class VictoryScreen {
-    public container: PIXI.Container;
-    private overlay: PIXI.Graphics;
+  public container: PIXI.Container;
+  private overlay: PIXI.Graphics;
 
-    constructor(app: PIXI.Application) {
-        this.container = new PIXI.Container();
-        this.generate(app.screen.width, app.screen.height);
-    }
+  constructor(app: PIXI.Application) {
+    this.container = new PIXI.Container();
+    this.generate(app.screen.width, app.screen.height);
+  }
 
-    show() {
-        this.container.visible = true;
-        const id = window.setTimeout(this.hide.bind(this), 3000);
-        const handler = () => {
-            window.clearTimeout(id);
-            this.hide();
-        };
-        this.overlay.addListener('pointerdown', handler.bind(this));
-    }
+  show() {
+    this.container.visible = true;
+    const id = window.setTimeout(this.hide.bind(this), 3000);
+    const handler = () => {
+      window.clearTimeout(id);
+      this.hide();
+    };
+    this.overlay.addListener('pointerdown', handler.bind(this));
+  }
 
-    hide() {
-        this.container.visible = false;
-    }
+  hide() {
+    this.container.visible = false;
+  }
 
-    private generate(appWidth: number, appHeight: number) {
-        this.container.visible = false;
+  private generate(appWidth: number, appHeight: number) {
+    this.container.visible = false;
 
-        this.overlay = new PIXI.Graphics();
-        this.overlay.beginFill(0xFFFFFF, 0.001);
-        this.overlay.drawRect(0, 0, appWidth, appHeight);
-        this.overlay.endFill();
-        this.overlay.interactive = true;
-        this.overlay.buttonMode = true;
-        this.overlay.cursor = 'default';
+    this.overlay = new PIXI.Graphics();
+    this.overlay.beginFill(0xffffff, 0.001);
+    this.overlay.drawRect(0, 0, appWidth, appHeight);
+    this.overlay.endFill();
+    this.overlay.interactive = true;
+    this.overlay.buttonMode = true;
+    this.overlay.cursor = 'default';
 
-        const rect = new PIXI.Graphics();
-        rect.beginFill(0x02474E, 0.8);
-        rect.drawRect(0, 0, 800, 400);
-        rect.x = (appWidth - rect.width) / 2 - 90;
-        rect.y = (appHeight - rect.height) / 2;
-        rect.endFill();
+    const rect = new PIXI.Graphics();
+    rect.beginFill(0x02474e, 0.8);
+    rect.drawRect(0, 0, 800, 400);
+    rect.x = (appWidth - rect.width) / 2 - 90;
+    rect.y = (appHeight - rect.height) / 2;
+    rect.endFill();
 
-        const style = new PIXI.TextStyle({
-            fontFamily: 'Courier',
-            fontSize: 96,
-            fill: '#ff33ee',
-        });
+    const style = new PIXI.TextStyle({
+      fontFamily: 'Courier',
+      fontSize: 96,
+      fill: '#ff33ee',
+    });
 
-        const text = new PIXI.Text('YOU WON!', style);
-        text.x = (appWidth - text.width) / 2 - 90;
-        text.y = (appHeight - text.height) / 2;
+    const text = new PIXI.Text('YOU WON!', style);
+    text.x = (appWidth - text.width) / 2 - 90;
+    text.y = (appHeight - text.height) / 2;
 
-        this.container.addChild(rect, text, this.overlay);
-    }
+    this.container.addChild(rect, text, this.overlay);
+  }
 }
