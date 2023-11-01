@@ -11,22 +11,42 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="styles/main.css">
-    <title>Free Use Slots!</title>
+    <title>WTF? Slots!</title>
 </head>
 <body>
-    <h1>Welcome to Kamp Shiny New's Slut Machine!</h1>
-    <p style="text-align: center;">Or is it Welcome to Kamp Shiny New's new Slut Machine?<br>
-    Trying to avoid people thinking: Welcome to Kamp Shiny's new Slut Machine!</p>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <h1>Welcome to Kamp What The Fuck's Slut Machine!</h1>
+    <noscript>You need to enable JavaScript to run this game.</noscript>
 </body>
 </html>
 
 <!-- 
     Tasks:
     *Fix 3-in-a-row win (works with wild card in SYM1 slot)
-    Show winning row with a highlight
-    Allow other row to count as a win
+    *Show winning row with a highlight
+    *Allow other row to count as a win
     Set different weights for multiplying wins based on characters
-    Allow addition of multiple winning rows
+    *Allow addition of multiple winning rows
     Show winning amount in VictoryScreen
+
+    We need a goal of success that requires more than just pulling the lever and getting random options.
+    Simplest solution seems to be to allow player ability to increase/decrease bet amount.
+    
+    Let's try an approach where increasing bets increases lines to check.  I'll find some math to figure out an appropriate amount needed to win per selected line vs bet amount.
+    (Need to figure out probability, and can adjust with how many characters exist in each pool.)
+
+    Win total: 100
+    Bet 1: Middle line, Win 10
+    Bet 2: All 3 Horizontal lines, Win 5
+    Bet 5: All 8 lines, Win 3
+
+
+    We need a system of picking the set of characters from a larger pool.  For example, we could have 100 sexy photos, but we only want to load 10 characters in a game (for higher probability of winning).
+    So I want a pool of characters, right now we can just have the 7;
+    then I want to have a function that runs on the creation of each new game that pulls random characters from this pool.
+    
+
+    We want an anti-win scenario,  perhaps where a player loses all coins and can't bet any more. Maybe one that says TOO WILD when player gets 3 wilds in a row (possibly impose a penalty, like lose half coins).
+
+
+    We need a starting screen that greets people and loads a new Game on some input.  Right now I imagine only an up and down button (pocket pussy and anus combo hiding buttons?), but they can be multi-purpose.  Possible player approaches, sees placeholder video or welcome graphic, and pressing either button OR pulling lever should initiate the newGame function.
  -->
