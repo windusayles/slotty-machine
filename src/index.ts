@@ -2,9 +2,10 @@ import { createNew } from 'typescript';
 import Game from './core/Game';
 
 document.addEventListener('keydown', (key) => {
-  if (key.code === 'Enter') createNewGame();
-  const hintText = document.querySelector('#hintText');
-  hintText?.remove();
+  if (key.code === 'Enter') {
+    document.querySelector('#hintText')?.remove();
+    createNewGame();
+  }
 });
 
 let gameHolder: Game;
