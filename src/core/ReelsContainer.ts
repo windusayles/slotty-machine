@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import Reel from './Reel';
+import { animations } from '../assets/atlas.json';
 
 export interface WinLines {
   top: number;
@@ -23,8 +24,30 @@ export default class ReelsContainer {
     const NUMBER_OF_REELS = 3;
     this.container = new PIXI.Container();
 
+    // create the set of textures here and pass in to new Reel so it has the same list, but we can have a new list with each game
+
+    // logic should work for 100 and 7 the same
+    const texturesToAdd: PIXI.Texture[] = [];
+    const tempTextures = [...animations.SYM];
+    // select a random decimal number with Math.random,
+    // multiply that number by length of textures,
+    // add this item to texturesToAdd, then remove it from temp list
+    let totalTextures = 6;
+
+    while (totalTextures > 0) {
+      const index = Math.floor(Math.random() * tempTextures.length);
+      texturesToAdd.push(app.loader.resources.atlas!.textures![tempTextures[index]]
+      );
+      tempTextures.splice(index, 1);
+
+      totalTextures -= 1;
+    }
+
+    console.log('SHOW ME TEMPT TEXTURES', { tempTextures });
+    console.log({ texturesToAdd });
+
     for (let i = 0; i < NUMBER_OF_REELS; i++) {
-      const reel = new Reel(app, i);
+      const reel = new Reel(app, i, texturesToAdd);
       this.reels.push(reel);
       this.container.addChild(reel.container);
     }

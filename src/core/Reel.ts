@@ -7,18 +7,11 @@ export default class Reel {
   private readonly appHeight: number;
   private readonly ticker: PIXI.Ticker;
 
-  constructor(app: PIXI.Application, position: number) {
+  constructor(app: PIXI.Application, position: number, textures: PIXI.Texture[]) {
     this.appHeight = app.screen.height;
     this.ticker = app.ticker;
     this.container = new PIXI.Container();
-    this.textures = [
-      app.loader.resources.atlas!.textures!['SYM1.png'],
-      app.loader.resources.atlas!.textures!['SYM2.png'],
-      app.loader.resources.atlas!.textures!['SYM3.png'],
-      app.loader.resources.atlas!.textures!['SYM4.png'],
-      app.loader.resources.atlas!.textures!['SYM5.png'],
-      app.loader.resources.atlas!.textures!['SYM6.png'],
-    ];
+    this.textures = textures;
     this.generate(position);
   }
 
