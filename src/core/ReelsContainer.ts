@@ -27,12 +27,12 @@ export default class ReelsContainer {
     // create the set of textures here and pass in to new Reel so it has the same list, but we can have a new list with each game
 
     // logic should work for 100 and 7 the same
-    const texturesToAdd: PIXI.Texture[] = [];
+    // keep SYM1 as wild card
     const tempTextures = [...animations.SYM];
-    // select a random decimal number with Math.random,
-    // multiply that number by length of textures,
-    // add this item to texturesToAdd, then remove it from temp list
-    let totalTextures = 6;
+    tempTextures.splice(0, 1);
+    const texturesToAdd: PIXI.Texture[] = [app.loader.resources.atlas!.textures!['SYM1.png']];
+    // total textures minus the 1 wild
+    let totalTextures = 5;
 
     while (totalTextures > 0) {
       const index = Math.floor(Math.random() * tempTextures.length);
@@ -42,9 +42,6 @@ export default class ReelsContainer {
 
       totalTextures -= 1;
     }
-
-    console.log('SHOW ME TEMPT TEXTURES', { tempTextures });
-    console.log({ texturesToAdd });
 
     for (let i = 0; i < NUMBER_OF_REELS; i++) {
       const reel = new Reel(app, i, texturesToAdd);
