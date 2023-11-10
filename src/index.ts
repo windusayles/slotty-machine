@@ -1,4 +1,3 @@
-import { createNew } from 'typescript';
 import Game from './core/Game';
 
 document.addEventListener('keydown', (key) => {
