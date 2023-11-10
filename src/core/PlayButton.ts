@@ -31,5 +31,8 @@ export default class PlayButton {
     this.sprite.interactive = true;
     this.sprite.buttonMode = true;
     this.sprite.addListener('pointerdown', this.onClick);
+    document.addEventListener('keydown', (key) => {
+      if (key.code === 'Space') this.onClick();
+    });
   }
 }

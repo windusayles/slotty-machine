@@ -2,16 +2,9 @@ import { createNew } from 'typescript';
 import Game from './core/Game';
 
 document.addEventListener('keydown', (key) => {
-  switch (key.code) {
-    case 'ArrowDown':
-    case 'ArrowUp':
-    case 'Space':
-      createNewGame();
-      break;
-  
-    default:
-      break;
-  }
+  if (key.code === 'Enter') createNewGame();
+  const hintText = document.querySelector('#hintText');
+  hintText?.remove();
 });
 
 let gameHolder: Game;
