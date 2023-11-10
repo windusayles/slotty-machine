@@ -27,17 +27,6 @@ export default class Game {
     this.createReels();
     this.createScoreboard();
     this.createVictoryScreen();
-    // this.createWinLineScreen({
-    //     top: 1,
-    //     middle: 1,
-    //     bottom: 1,
-    //     left: 1,
-    //     center: 1,
-    //     right: 1,
-    //     backSlash: 1,
-    //     slash: 1,
-    //     winTotal: 0,
-    // });
   }
 
   private createScene() {
@@ -68,6 +57,17 @@ export default class Game {
   private createWinLineScreen(winResult: WinLines) {
     this.winLineScreen = new WinLineScreen(this.app, winResult);
     this.app.stage.addChild(this.winLineScreen.container);
+    //  winResult test all lines: {
+    //     top: 1,
+    //     middle: 1,
+    //     bottom: 1,
+    //     left: 1,
+    //     center: 1,
+    //     right: 1,
+    //     backSlash: 1,
+    //     slash: 1,
+    //     winTotal: 0,
+    //   };
   }
 
   handleStart() {
