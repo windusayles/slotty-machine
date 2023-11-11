@@ -30,13 +30,16 @@ export default class ReelsContainer {
     // keep SYM1 as wild card
     const tempTextures = [...animations.SYM];
     tempTextures.splice(0, 1);
-    const texturesToAdd: PIXI.Texture[] = [app.loader.resources.atlas!.textures!['SYM1.png']];
+    const texturesToAdd: PIXI.Texture[] = [
+      app.loader.resources.atlas!.textures!['SYM1.png'],
+    ];
     // total textures minus the 1 wild
-    let totalTextures = 5;
+    let totalTextures = 2;
 
     while (totalTextures > 0) {
       const index = Math.floor(Math.random() * tempTextures.length);
-      texturesToAdd.push(app.loader.resources.atlas!.textures![tempTextures[index]]
+      texturesToAdd.push(
+        app.loader.resources.atlas!.textures![tempTextures[index]]
       );
       tempTextures.splice(index, 1);
 
@@ -145,7 +148,9 @@ export default class ReelsContainer {
     );
 
     // all three wild card is now TOO wild, no points
-    if (combination.size === 1 && !combination.has('SYM1')) return 0;
+    if (combination.size === 1 && combination.has('SYM1')) return 0;
+
+    if (combination.size === 1 && !combination.has('SYM1')) return 1;
 
     return combination.size === 2 && combination.has('SYM1') ? 1 : 0;
   }
