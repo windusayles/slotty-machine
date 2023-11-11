@@ -55,19 +55,21 @@ export default class Game {
   }
 
   private createWinLineScreen(winResult: WinLines) {
+    // winResult = { // show all lines
+    //   top: 1,
+    //   middle: 1,
+    //   bottom: 1,
+    //   left: 1,
+    //   center: 1,
+    //   right: 1,
+    //   right2: 1,
+    //   right3: 1,
+    //   // backSlash: 1,
+    //   // slash: 1,
+    //   winTotal: 0,
+    // };
     this.winLineScreen = new WinLineScreen(this.app, winResult);
     this.app.stage.addChild(this.winLineScreen.container);
-    //  winResult test all lines: {
-    //     top: 1,
-    //     middle: 1,
-    //     bottom: 1,
-    //     left: 1,
-    //     center: 1,
-    //     right: 1,
-    //     backSlash: 1,
-    //     slash: 1,
-    //     winTotal: 0,
-    //   };
   }
 
   handleStart() {
@@ -85,7 +87,6 @@ export default class Game {
     }
 
     if (!this.scoreboard.outOfMoney) {
-      console.log('called button enable in process spin');
       this.playBtn.setEnabled();
     }
   }

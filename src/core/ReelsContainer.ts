@@ -22,7 +22,7 @@ export default class ReelsContainer {
   public readonly container: PIXI.Container;
 
   constructor(app: PIXI.Application) {
-    const REEL_OFFSET_LEFT = 80;
+    const REEL_OFFSET_LEFT = 70;
     const NUMBER_OF_REELS = 5;
     this.container = new PIXI.Container();
 

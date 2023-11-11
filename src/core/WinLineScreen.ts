@@ -37,12 +37,11 @@ export default class WinLineScreen {
     const childrenToAdd = [];
 
     if (winResult.top) {
-      console;
       const top = new PIXI.Graphics();
       top.beginFill(0xffff66, 0.01);
       top.lineStyle(5, 0xffff66, 0.8);
-      top.drawRect(0, 0, 800, 380);
-      top.x = (appWidth - top.width) / 2 - 88;
+      top.drawRect(0, 0, 1400, 380);
+      top.x = (appWidth - top.width) / 2;
       top.y = 40;
       top.endFill();
       childrenToAdd.push(top);
@@ -51,8 +50,8 @@ export default class WinLineScreen {
       const middle = new PIXI.Graphics();
       middle.beginFill(0xffff66, 0.01);
       middle.lineStyle(5, 0xffff66, 0.8);
-      middle.drawRect(0, 0, 800, 380);
-      middle.x = (appWidth - middle.width) / 2 - 88;
+      middle.drawRect(0, 0, 1400, 380);
+      middle.x = (appWidth - middle.width) / 2;
       middle.y = (appHeight - middle.height) / 2 + 3;
       middle.endFill();
       childrenToAdd.push(middle);
@@ -61,8 +60,8 @@ export default class WinLineScreen {
       const bottom = new PIXI.Graphics();
       bottom.beginFill(0xffff66, 0.01);
       bottom.lineStyle(5, 0xffff66, 0.8);
-      bottom.drawRect(0, 0, 800, 380);
-      bottom.x = (appWidth - bottom.width) / 2 - 88;
+      bottom.drawRect(0, 0, 1400, 380);
+      bottom.x = (appWidth - bottom.width) / 2;
       bottom.y = appHeight - bottom.height - 34;
       bottom.endFill();
       childrenToAdd.push(bottom);
@@ -72,7 +71,7 @@ export default class WinLineScreen {
       left.beginFill(0xffff66, 0.01);
       left.lineStyle(5, 0xffff66, 0.8);
       left.drawRect(0, 0, 200, 1300);
-      left.x = 305;
+      left.x = 85;
       left.y = 40;
       left.endFill();
       childrenToAdd.push(left);
@@ -82,7 +81,7 @@ export default class WinLineScreen {
       center.beginFill(0xffff66, 0.01);
       center.lineStyle(5, 0xffff66, 0.8);
       center.drawRect(0, 0, 200, 1300);
-      center.x = 605;
+      center.x = 385;
       center.y = 40;
       center.endFill();
       childrenToAdd.push(center);
@@ -92,7 +91,27 @@ export default class WinLineScreen {
       right.beginFill(0xffff66, 0.01);
       right.lineStyle(5, 0xffff66, 0.8);
       right.drawRect(0, 0, 200, 1300);
-      right.x = 905;
+      right.x = 685;
+      right.y = 40;
+      right.endFill();
+      childrenToAdd.push(right);
+    }
+    if (winResult.right2) {
+      const right = new PIXI.Graphics();
+      right.beginFill(0xffff66, 0.01);
+      right.lineStyle(5, 0xffff66, 0.8);
+      right.drawRect(0, 0, 200, 1300);
+      right.x = 985;
+      right.y = 40;
+      right.endFill();
+      childrenToAdd.push(right);
+    }
+    if (winResult.right3) {
+      const right = new PIXI.Graphics();
+      right.beginFill(0xffff66, 0.01);
+      right.lineStyle(5, 0xffff66, 0.8);
+      right.drawRect(0, 0, 200, 1300);
+      right.x = 1285;
       right.y = 40;
       right.endFill();
       childrenToAdd.push(right);
