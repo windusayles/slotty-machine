@@ -84,6 +84,9 @@ export default class Game {
       this.createWinLineScreen(spinResult);
     }
 
-    if (!this.scoreboard.outOfMoney) this.playBtn.setEnabled();
+    if (!this.scoreboard.outOfMoney) {
+      console.log('called button enable in process spin');
+      this.playBtn.setEnabled();
+    }
   }
 }

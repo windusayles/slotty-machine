@@ -11,11 +11,13 @@ export default class Scoreboard {
   private money: number = 10;
   private wager: number = 10;
   private spent: number = 0;
+  private playBtn: PlayButton;
 
   constructor(app: PIXI.Application, playBtn: PlayButton) {
     this.container = new PIXI.Container();
+    this.playBtn = playBtn;
     this.generate(app.screen.width, app.screen.height);
-    this.handleWager(app, playBtn);
+    this.handleWager(app);
   }
 
   decrement() {
@@ -34,7 +36,15 @@ export default class Scoreboard {
     this.winTotal.text = `Total: ${this.money}`;
     this.winAmount += Math.floor(this.wager * multiplier);
     this.winAmountText.text = `Earned: ${this.winAmount}`;
-    if (this.money >= this.wager) this.outOfMoney = false;
+    if (this.wager > this.money) {
+      this.wager = this.money;
+      this.playBtn.setEnabled();
+      this.wagerText.text = `Wager: ${this.wager}`;
+    }
+    if (this.money >= this.wager && this.money) {
+      console.log('set to true');
+      this.outOfMoney = false;
+    }
   }
 
   private generate(appWidth: number, appHeight: number) {
@@ -75,7 +85,7 @@ export default class Scoreboard {
     );
   }
 
-  private handleWager(app: PIXI.Application, playBtn: PlayButton) {
+  private handleWager(app: PIXI.Application) {
     document.addEventListener('keydown', (key) => {
       if (key.code === 'ArrowUp' && this.wager < this.money) {
         this.wager += 1;
@@ -83,7 +93,7 @@ export default class Scoreboard {
       } else if (key.code === 'ArrowDown' && this.wager > 1) {
         this.wager -= 1;
         if (this.outOfMoney === true && this.wager <= this.money) {
-          playBtn.setEnabled();
+          this.playBtn.setEnabled();
           this.outOfMoney = false;
         }
         this.generate(app.screen.width, app.screen.height);
