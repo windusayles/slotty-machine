@@ -9,7 +9,7 @@ import WinLineScreen from './WinLineScreen';
 
 export default class Game {
   public app: PIXI.Application;
-  private playBtn: PlayButton;
+  public playBtn: PlayButton;
   private reelsContainer: ReelsContainer;
   private scoreboard: Scoreboard;
   private victoryScreen: VictoryScreen;
@@ -45,7 +45,7 @@ export default class Game {
   }
 
   private createScoreboard() {
-    this.scoreboard = new Scoreboard(this.app);
+    this.scoreboard = new Scoreboard(this.app, this.playBtn);
     this.app.stage.addChild(this.scoreboard.container);
   }
 
