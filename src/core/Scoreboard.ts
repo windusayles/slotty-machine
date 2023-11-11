@@ -42,7 +42,6 @@ export default class Scoreboard {
       this.wagerText.text = `Wager: ${this.wager}`;
     }
     if (this.money >= this.wager && this.money) {
-      console.log('set to true');
       this.outOfMoney = false;
     }
   }

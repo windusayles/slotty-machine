@@ -55,7 +55,7 @@ export default class Game {
   }
 
   private createWinLineScreen(winResult: WinLines) {
-    // winResult = { // show all lines
+    // winResult = {
     //   top: 1,
     //   middle: 1,
     //   bottom: 1,

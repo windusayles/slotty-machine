@@ -71,7 +71,7 @@ export default class WinLineScreen {
       left.beginFill(0xffff66, 0.01);
       left.lineStyle(5, 0xffff66, 0.8);
       left.drawRect(0, 0, 200, 1300);
-      left.x = 85;
+      left.x = 95;
       left.y = 40;
       left.endFill();
       childrenToAdd.push(left);
@@ -81,7 +81,7 @@ export default class WinLineScreen {
       center.beginFill(0xffff66, 0.01);
       center.lineStyle(5, 0xffff66, 0.8);
       center.drawRect(0, 0, 200, 1300);
-      center.x = 385;
+      center.x = 395;
       center.y = 40;
       center.endFill();
       childrenToAdd.push(center);
@@ -91,7 +91,7 @@ export default class WinLineScreen {
       right.beginFill(0xffff66, 0.01);
       right.lineStyle(5, 0xffff66, 0.8);
       right.drawRect(0, 0, 200, 1300);
-      right.x = 685;
+      right.x = 695;
       right.y = 40;
       right.endFill();
       childrenToAdd.push(right);
@@ -101,7 +101,7 @@ export default class WinLineScreen {
       right.beginFill(0xffff66, 0.01);
       right.lineStyle(5, 0xffff66, 0.8);
       right.drawRect(0, 0, 200, 1300);
-      right.x = 985;
+      right.x = 995;
       right.y = 40;
       right.endFill();
       childrenToAdd.push(right);
@@ -111,7 +111,7 @@ export default class WinLineScreen {
       right.beginFill(0xffff66, 0.01);
       right.lineStyle(5, 0xffff66, 0.8);
       right.drawRect(0, 0, 200, 1300);
-      right.x = 1285;
+      right.x = 1295;
       right.y = 40;
       right.endFill();
       childrenToAdd.push(right);
