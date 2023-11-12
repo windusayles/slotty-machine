@@ -28,6 +28,10 @@ h1 {
   align-items: center;
 }
 
+.hide-on-start {
+  display: none;
+}
+
 p {
   margin: 0;
   font-size: larger;
