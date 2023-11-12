@@ -18,7 +18,18 @@ body {
   );
 }
 
-h1,
-p {
+h1 {
   color: rgb(240, 240, 240);
+}
+
+#hintText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+p {
+  margin: 0;
+  font-size: larger;
+  text-align: center;
 }
