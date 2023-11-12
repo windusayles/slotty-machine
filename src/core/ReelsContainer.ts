@@ -168,7 +168,14 @@ export default class ReelsContainer {
     );
 
     // all three wild card is now TOO wild, no points
-    if (combination.size === 1 && combination.has('SYM1')) return 0;
+    if (combination.size === 1 && combination.has('SYM1')) {
+      console.log({ symbols });
+      if (symbols.length === 3) return 0;
+      if (symbols.length === 5) {
+        window.alert('WAY TOO WILD');
+        window.location.reload();
+      }
+    }
 
     if (combination.size === 1 && !combination.has('SYM1')) return 1;
 

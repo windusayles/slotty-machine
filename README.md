@@ -23,8 +23,16 @@ A simple slot machine game for my Burning Man camp. Credit for the base of this 
 
 ### Features
 
-1. Winning: (3 symbols in a middle horizontal row)
-   - 3 Same symbols
-   - 2 Same symbols and 1 Wild
-   - 2 Wilds and 1 any symbol
-   - _**Note:**_ 3 Wilds counts as an extra half win
+1. Winning:
+   - Vertically
+     - 3 Same symbols in Column
+     - 1-2 Same symbols and others Wild
+     - _**Note:**_ 3 Wilds is TOO wild and gives no points
+   - Horizontally
+     - 5 Same symbols in Row
+     - 1-4 Same symbols and others Wild
+     - **Note:** 5 Wilds is WAY too wild and will reset the game
+2. Controls:
+   - Return: Start new game, can be activated at any time
+   - Space bar: Activates lever to spin reels; inactive when lever is inactive
+   - Up/Down arrows: Increase/Decrease the wager amount while a game is active; amount is set between 1 and current money
