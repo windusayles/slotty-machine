@@ -12,15 +12,15 @@ export default class LoseScreen {
   show() {
     this.container.visible = true;
     const id = window.setTimeout(this.hide.bind(this), 10000);
-    const handler = () => {
-      window.clearTimeout(id);
-      this.hide();
-    };
-    // this.overlay.addListener('pointerdown', handler.bind(this));
+
+    document.addEventListener('keydown', (key) => {
+      if (key.code === 'Enter') {
+        window.clearTimeout(id);
+      }
+    });
   }
 
   hide() {
-    // this.container.visible = false;
     window.location.reload();
   }
 
