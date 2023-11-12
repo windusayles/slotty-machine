@@ -6,11 +6,17 @@ document.addEventListener('keydown', (key) => {
     createNewGame();
   }
 });
+document.addEventListener('pointerup', clickStartOnce);
+
+function clickStartOnce() {
+  createNewGame();
+  document.removeEventListener('pointerup', clickStartOnce);
+}
 
 let gameHolder: Game;
 
 function createNewGame() {
   if (gameHolder) gameHolder.app.destroy(true);
-  
+
   gameHolder = new Game();
 }
