@@ -87,8 +87,8 @@ export default class Game {
   }
 
   private processSpinResult(spinResult: WinLines) {
+    this.scoreboard.increment(spinResult.winTotal);
     if (spinResult.winTotal) {
-      this.scoreboard.increment(spinResult.winTotal);
       this.createVictoryScreen(spinResult.winTotal * this.scoreboard.wager);
       this.victoryScreen.show();
       // add a highlight for each win line

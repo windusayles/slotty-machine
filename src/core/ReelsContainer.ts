@@ -20,21 +20,25 @@ export interface WinLines {
 export default class ReelsContainer {
   public readonly reels: Array<Reel> = [];
   public readonly container: PIXI.Container;
+  private REEL_OFFSET_LEFT = 70;
+  private NUMBER_OF_REELS = 5;
 
   constructor(app: PIXI.Application) {
-    const REEL_OFFSET_LEFT = 70;
-    const NUMBER_OF_REELS = 5;
+    const texturesToAdd: PIXI.Texture[] = [
+      app.loader.resources.atlas!.textures!['SYM1.png'],
+    ];
     this.container = new PIXI.Container();
+    this.initTextures(app, texturesToAdd);
+  }
 
+  private initTextures(app: PIXI.Application, texturesToAdd: PIXI.Texture[]) {
     // create the set of textures here and pass in to new Reel so it has the same list, but we can have a new list with each game
 
     // logic should work for 100 and 7 the same
     // keep SYM1 as wild card
     const tempTextures = [...animations.SYM];
     tempTextures.splice(0, 1);
-    const texturesToAdd: PIXI.Texture[] = [
-      app.loader.resources.atlas!.textures!['SYM1.png'],
-    ];
+
     // total number of CHARACTERS minus the 1 WILD
     let totalTextures = 4;
 
@@ -48,13 +52,13 @@ export default class ReelsContainer {
       totalTextures -= 1;
     }
 
-    for (let i = 0; i < NUMBER_OF_REELS; i++) {
+    for (let i = 0; i < this.NUMBER_OF_REELS; i++) {
       const reel = new Reel(app, i, texturesToAdd);
       this.reels.push(reel);
       this.container.addChild(reel.container);
     }
 
-    this.container.x = REEL_OFFSET_LEFT;
+    this.container.x = this.REEL_OFFSET_LEFT;
   }
 
   async spin() {

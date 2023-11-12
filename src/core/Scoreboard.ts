@@ -8,7 +8,6 @@ export default class Scoreboard {
   private wagerText: PIXI.Text;
   private money: number = 10;
   public wager: number = 10;
-  private spent: number = 0;
   private playBtn: PlayButton;
 
   constructor(app: PIXI.Application, playBtn: PlayButton) {
@@ -22,23 +21,28 @@ export default class Scoreboard {
     if (!this.outOfMoney) {
       this.money -= this.wager;
       this.winTotal.text = `Total: ${this.money}`;
-      this.spent -= this.wager;
-    }
-    if (this.money - this.wager < 0) {
-      this.outOfMoney = true;
     }
   }
 
   increment(multiplier: number) {
-    this.money += Math.floor(this.wager * multiplier);
-    this.winTotal.text = `Total: ${this.money}`;
-    if (this.wager > this.money) {
-      this.wager = this.money;
-      this.playBtn.setEnabled();
-      this.wagerText.text = `Wager: ${this.wager}`;
+    if (!multiplier) {
+      if (this.wager > this.money && this.money !== 0) {
+        this.wager = this.money;
+        this.wagerText.text = `Wager: ${this.wager}`;
+      }
+    } else {
+      this.money += Math.floor(this.wager * multiplier);
+      this.winTotal.text = `Total: ${this.money}`;
+      if (this.wager > this.money) {
+        this.wager = this.money;
+        this.playBtn.setEnabled();
+        this.wagerText.text = `Wager: ${this.wager}`;
+      }
     }
     if (this.money >= this.wager && this.money) {
       this.outOfMoney = false;
+    } else {
+      this.outOfMoney = true;
     }
   }
 
@@ -80,8 +84,8 @@ export default class Scoreboard {
       } else if (key.code === 'ArrowDown' && this.wager > 1) {
         this.wager -= 1;
         if (this.outOfMoney === true && this.wager <= this.money) {
-          this.playBtn.setEnabled();
           this.outOfMoney = false;
+          this.playBtn.setEnabled();
         }
         this.generate(app.screen.width, app.screen.height);
       }
