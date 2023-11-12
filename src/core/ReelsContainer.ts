@@ -35,8 +35,8 @@ export default class ReelsContainer {
     const texturesToAdd: PIXI.Texture[] = [
       app.loader.resources.atlas!.textures!['SYM1.png'],
     ];
-    // total textures minus the 1 wild
-    let totalTextures = 2;
+    // total number of CHARACTERS minus the 1 WILD
+    let totalTextures = 4;
 
     while (totalTextures > 0) {
       const index = Math.floor(Math.random() * tempTextures.length);
@@ -130,15 +130,13 @@ export default class ReelsContainer {
     ];
     // check for wins in top, mid, & bottom
     for (let i = 0; i < this.reels[0].sprites.length - 1; i++) {
-      winLines[lineOrder[i]] += this.checkForWin(
-        this.reels.map((reel) => reel.sprites[i + 1])
-      );
+      // mid lines are worth 2x as much as vertical
+      winLines[lineOrder[i]] +=
+        2 * this.checkForWin(this.reels.map((reel) => reel.sprites[i + 1]));
     }
     // check for wins in vertical and possible diagonals
     for (let i = 0; i < onScreenReels.length; i++) {
-      winLines[lineOrder[3 + i]] += this.checkForWin(onScreenReels[i])
-        ? 0.2 // reduce weight of easier wins
-        : 0;
+      winLines[lineOrder[3 + i]] += this.checkForWin(onScreenReels[i]);
     }
     // sum all wins for a single win value
     for (const entry of lineOrder) {
@@ -170,7 +168,9 @@ export default class ReelsContainer {
 
     if (combination.size === 1 && !combination.has('SYM1')) return 1;
 
-    return combination.size === 2 && combination.has('SYM1') ? 1 : 0;
+    if (combination.size === 2 && combination.has('SYM1')) return 1;
+
+    return 0;
   }
 
   private blessRNG() {
