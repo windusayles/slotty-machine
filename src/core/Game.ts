@@ -6,6 +6,7 @@ import ReelsContainer, { WinLines } from './ReelsContainer';
 import Scoreboard from './Scoreboard';
 import VictoryScreen from './VictoryScreen';
 import WinLineScreen from './WinLineScreen';
+import LoseScreen from './LoseScreen';
 
 export default class Game {
   public app: PIXI.Application;
@@ -14,6 +15,7 @@ export default class Game {
   private scoreboard: Scoreboard;
   private victoryScreen: VictoryScreen;
   private winLineScreen: WinLineScreen;
+  private loseScreen: LoseScreen;
 
   constructor() {
     this.app = new PIXI.Application({ width: 1590, height: 1380 });
@@ -27,6 +29,7 @@ export default class Game {
     this.createReels();
     this.createScoreboard();
     // this.createVictoryScreen();
+    this.createLoseScreen();
   }
 
   private createScene() {
@@ -72,6 +75,11 @@ export default class Game {
     this.app.stage.addChild(this.winLineScreen.container);
   }
 
+  private createLoseScreen() {
+    this.loseScreen = new LoseScreen(this.app);
+    this.app.stage.addChild(this.loseScreen.container);
+  }
+
   handleStart() {
     this.scoreboard.decrement();
     this.playBtn.setDisabled();
@@ -89,6 +97,8 @@ export default class Game {
 
     if (!this.scoreboard.outOfMoney) {
       this.playBtn.setEnabled();
+    } else {
+      this.loseScreen.show();
     }
   }
 }
