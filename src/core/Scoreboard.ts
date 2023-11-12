@@ -4,12 +4,10 @@ import PlayButton from './PlayButton';
 export default class Scoreboard {
   public container: PIXI.Container;
   public outOfMoney = false;
-  private winAmountText: PIXI.Text;
   private winTotal: PIXI.Text;
   private wagerText: PIXI.Text;
-  private winAmount: number = 0;
   private money: number = 10;
-  private wager: number = 10;
+  public wager: number = 10;
   private spent: number = 0;
   private playBtn: PlayButton;
 
@@ -34,8 +32,6 @@ export default class Scoreboard {
   increment(multiplier: number) {
     this.money += Math.floor(this.wager * multiplier);
     this.winTotal.text = `Total: ${this.money}`;
-    this.winAmount += Math.floor(this.wager * multiplier);
-    this.winAmountText.text = `Earned: ${this.winAmount}`;
     if (this.wager > this.money) {
       this.wager = this.money;
       this.playBtn.setEnabled();
@@ -59,29 +55,21 @@ export default class Scoreboard {
     this.wagerText = new PIXI.Text(`Wager: ${this.wager}`, style);
     this.wagerText.y = this.winTotal.height + 10;
 
-    this.winAmountText = new PIXI.Text(`Earned: ${this.winAmount}`, style);
-    this.winAmountText.y = this.wagerText.y + this.wagerText.height + 5;
-
-    this.wagerText.x = this.winTotal.x = this.winAmountText.x = 10;
+    this.wagerText.x = this.winTotal.x = 10;
 
     const rect = new PIXI.Graphics();
     rect.beginFill(0x02474e, 0.6);
     const rectHeight =
       this.winTotal.height +
       this.wagerText.height +
-      this.winAmountText.height +
+      // this.winAmountText.height +
       25;
     rect.drawRect(0, 0, 160, rectHeight);
     rect.endFill();
 
     this.container.x = appWidth - rect.width - 150;
     this.container.y = appHeight / 2 - 25;
-    this.container.addChild(
-      rect,
-      this.winTotal,
-      this.wagerText,
-      this.winAmountText
-    );
+    this.container.addChild(rect, this.winTotal, this.wagerText);
   }
 
   private handleWager(app: PIXI.Application) {
