@@ -4,9 +4,9 @@ export default class VictoryScreen {
   public container: PIXI.Container;
   private overlay: PIXI.Graphics;
 
-  constructor(app: PIXI.Application) {
+  constructor(app: PIXI.Application, winTotal: number) {
     this.container = new PIXI.Container();
-    this.generate(app.screen.width, app.screen.height);
+    this.generate(app.screen.width, app.screen.height, winTotal);
   }
 
   show() {
@@ -23,7 +23,7 @@ export default class VictoryScreen {
     this.container.visible = false;
   }
 
-  private generate(appWidth: number, appHeight: number) {
+  private generate(appWidth: number, appHeight: number, winTotal: number) {
     this.container.visible = false;
 
     this.overlay = new PIXI.Graphics();
@@ -47,7 +47,7 @@ export default class VictoryScreen {
       fill: '#ff33ee',
     });
 
-    const text = new PIXI.Text('YOU WON!', style);
+    const text = new PIXI.Text(`YOU WON ${winTotal} COINS!`, style);
     text.x = (appWidth - text.width) / 2 - 90;
     text.y = (appHeight - text.height) / 2;
 

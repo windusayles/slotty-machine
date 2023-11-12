@@ -26,7 +26,7 @@ export default class Game {
     this.createPlayButton();
     this.createReels();
     this.createScoreboard();
-    this.createVictoryScreen();
+    // this.createVictoryScreen();
   }
 
   private createScene() {
@@ -49,8 +49,8 @@ export default class Game {
     this.app.stage.addChild(this.scoreboard.container);
   }
 
-  private createVictoryScreen() {
-    this.victoryScreen = new VictoryScreen(this.app);
+  private createVictoryScreen(winTotal: number) {
+    this.victoryScreen = new VictoryScreen(this.app, winTotal);
     this.app.stage.addChild(this.victoryScreen.container);
   }
 
@@ -81,6 +81,7 @@ export default class Game {
   private processSpinResult(spinResult: WinLines) {
     if (spinResult.winTotal) {
       this.scoreboard.increment(spinResult.winTotal);
+      this.createVictoryScreen(spinResult.winTotal * this.scoreboard.wager);
       this.victoryScreen.show();
       // add a highlight for each win line
       this.createWinLineScreen(spinResult);
