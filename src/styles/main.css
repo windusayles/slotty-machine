@@ -22,13 +22,13 @@ h1 {
   color: rgb(240, 240, 240);
 }
 
-#hintText {
+.flex-center {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.hide-on-start {
+.hide {
   display: none;
 }
 

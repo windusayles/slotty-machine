@@ -10,7 +10,6 @@ document.addEventListener('pointerup', clickStartOnce);
 
 function clickStartOnce() {
   createNewGame();
-  document.querySelector('#hintText')?.remove();
   document.removeEventListener('pointerup', clickStartOnce);
 }
 
@@ -18,7 +17,10 @@ let gameHolder: Game;
 
 function createNewGame() {
   if (gameHolder) gameHolder.app.destroy(true);
-  const playerInfo = document.querySelector('.hide-on-start') as Element;
+  const details = document.querySelector('#details') as Element;
+  details.className = 'hide';
+
+  const playerInfo = document.querySelector('#playerInfo') as Element;
   playerInfo.className = '';
   gameHolder = new Game();
 }
