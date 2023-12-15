@@ -24,7 +24,6 @@ module.exports = {
   },
   plugins: getPlugins(),
   devServer: {
-    contentBase: BUILD_PATH,
     port: 4200,
     hot: true,
   },
