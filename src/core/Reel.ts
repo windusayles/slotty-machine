@@ -2,35 +2,37 @@ import * as PIXI from 'pixi.js';
 
 export default class Reel {
   public readonly container: PIXI.Container;
-  public readonly textures: Array<PIXI.Texture>;
+  public availableSprites: Array<PIXI.Sprite> = [];
   public sprites: Array<PIXI.Sprite> = [];
   private readonly appHeight: number;
   private readonly ticker: PIXI.Ticker;
 
-  constructor(app: PIXI.Application, position: number, textures: PIXI.Texture[]) {
+  constructor(
+    app: PIXI.Application,
+    position: number,
+    availableSprites: PIXI.Sprite[]
+  ) {
     this.appHeight = app.screen.height;
     this.ticker = app.ticker;
     this.container = new PIXI.Container();
-    this.textures = textures;
+    this.availableSprites = availableSprites;
     this.generate(position);
   }
 
   private generate(position: number) {
-    const REEL_WIDTH = 250;
-    const REEL_OFFSET_BETWEEN = 50;
-    const NUMBER_OF_ROWS = 3;
+    const REEL_WIDTH = 200;
+    const REEL_OFFSET_BETWEEN = 0;
+    const NUMBER_OF_ROWS = 3; // +1 offscreen above
     this.container.x = position * REEL_WIDTH;
 
     for (let i = 0; i < NUMBER_OF_ROWS + 1; i++) {
-      const symbol = new PIXI.Sprite(
-        this.textures[Math.floor(Math.random() * this.textures.length)]
-      );
-      symbol.scale.set(0.9);
+      const symbol = this.availableSprites[i];
+
       const widthDiff = REEL_WIDTH - symbol.width;
       symbol.x = position * REEL_OFFSET_BETWEEN + widthDiff / 2;
 
       const yOffset = (this.appHeight - symbol.height * 3) / 3;
-      const cellHeight = symbol.height + yOffset;
+      const cellHeight = symbol.height + (yOffset ? yOffset : 0); // avoid negative values when testing larger images
       const paddingTop = yOffset / 2;
       symbol.y = (i - 1) * cellHeight + paddingTop;
       this.sprites.push(symbol);

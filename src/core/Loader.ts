@@ -26,7 +26,7 @@ export default class Loader {
       fontWeight: 'bold',
       fill: '#ffffff',
     });
-    const playText = new PIXI.Text('Loading...', style);
+    const playText = new PIXI.Text('Loading Sluts ...', style);
     playText.x = (appWidth - playText.width) / 2;
     playText.y = (appHeight - playText.height) / 2;
     this.loadingScreen = playText;

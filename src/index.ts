@@ -20,7 +20,5 @@ function createNewGame() {
   const details = document.querySelector('#details') as Element;
   details.className = 'hide';
 
-  const playerInfo = document.querySelector('#playerInfo') as Element;
-  playerInfo.className = '';
   gameHolder = new Game();
 }

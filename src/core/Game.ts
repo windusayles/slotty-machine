@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import Loader from './Loader';
 import PlayButton from './PlayButton';
-import Background from './Background';
+// import Background from './Background';
 import ReelsContainer, { WinLines } from './ReelsContainer';
 import Scoreboard from './Scoreboard';
 import VictoryScreen from './VictoryScreen';
@@ -18,13 +18,17 @@ export default class Game {
   private loseScreen: LoseScreen;
 
   constructor() {
-    this.app = new PIXI.Application({ width: 1590, height: 1380 });
+    this.app = new PIXI.Application({
+      width: 1920,
+      height: 1080,
+      backgroundAlpha: 0,
+    });
     window.document.body.appendChild(this.app.view);
     new Loader(this.app, this.init.bind(this));
   }
 
   private init() {
-    this.createScene();
+    // this.createScene();
     this.createPlayButton();
     this.createReels();
     this.createScoreboard();
@@ -32,10 +36,10 @@ export default class Game {
     this.createLoseScreen();
   }
 
-  private createScene() {
-    const bg = new Background(this.app.loader);
-    this.app.stage.addChild(bg.sprite);
-  }
+  // private createScene() {
+  //   const bg = new Background(this.app.loader);
+  //   this.app.stage.addChild(bg.sprite);
+  // }
 
   private createPlayButton() {
     this.playBtn = new PlayButton(this.app, this.handleStart.bind(this));
