@@ -16,7 +16,7 @@ function clickStartOnce() {
 let gameHolder: Game;
 
 function createNewGame() {
-  if (gameHolder) gameHolder.app.destroy(true);
+  if (gameHolder) gameHolder.app.destroy(true, { children: true });
   const details = document.querySelector('#details') as Element;
   details.className = 'hide';
 

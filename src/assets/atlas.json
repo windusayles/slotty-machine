@@ -277,7 +277,8 @@
       "SYM5.png",
       "SYM6.png",
       "SYM7.png"
-    ]
+    ],
+    "kinkInc": ["Assa1", "Assa2", "Dick1", "Dick2", "Dick3", "Doll1", "Doll2"]
   },
   "meta": {
     "app": "nowebsite",

@@ -33,22 +33,25 @@ export default class ReelsContainer {
   }
 
   private initTextures(app: PIXI.Application, texturesToAdd: PIXI.Texture[]) {
-    // create the set of textures here and pass in to new Reel so it has the same list, but we can have a new list with each game
-
     // logic should work for 100 and 7 the same
     // keep SYM1 as wild card
-    const tempTextures = [...animations.SYM];
-    tempTextures.splice(0, 1);
+    const texturePool = [...animations.SYM];
+    texturePool.splice(0, 1);
+    texturePool.push(...animations.kinkInc);
 
     // total number of CHARACTERS minus the 1 WILD and any others added at top
-    let additionalTextures = 4;
+    let addTextures = 13;
 
-    while (additionalTextures > 0) {
-      const index = Math.floor(Math.random() * tempTextures.length);
-      texturesToAdd.push(
-        app.loader.resources.atlas!.textures![tempTextures[index]]
-      );
-      additionalTextures -= 1;
+    while (addTextures > 0) {
+      const index = Math.floor(Math.random() * texturePool.length);
+      if (index > 5) {
+        texturesToAdd.push(app.loader.resources[texturePool[index]]!.texture!);
+      } else {
+        texturesToAdd.push(
+          app.loader.resources.atlas!.textures![texturePool[index]]
+        );
+      }
+      addTextures -= 1;
     }
 
     for (let i = 0; i < this.NUMBER_OF_REELS; i++) {
@@ -95,27 +98,29 @@ export default class ReelsContainer {
      * (index starts at 1 in loop, not 0)
      * the reels (vertical) are used to check horiztonal and vertical win lines
      */
-    // const onScreenReels = this.reels.map((reel) => {
-    //   const newArray = [];
-    //   for (let i = 1; i < reel.sprites.length; i++) {
-    //     newArray.push(reel.sprites[i]);
-    //   }
-    //   return newArray;
-    // });
-    // create diagonals if we have square grid
-    // if (reelsLen === this.reels[0].sprites.length - 1 && reelsLen % 2 === 1) {
-    //   console.log(
-    //     'ADDING DIAGONAL WIN LINES TO CHECK',
-    //     'oddly, this does not need to be called in order to check'
-    //   );
-    //   const backSlash = [],
-    //     slashDiag = [];
-    //   for (let i = 0; i < reelsLen; i++) {
-    //     backSlash.push(this.reels[i].sprites[i + 1]);
-    //     slashDiag.push(this.reels[reelsLen - 1 - i].sprites[i + 1]);
-    //   }
-    //   onScreenReels.push(backSlash, slashDiag);
-    // }
+    const onScreenReels = this.reels.map((reel) => {
+      const newArray = [];
+      for (let i = 1; i < reel.sprites.length; i++) {
+        newArray.push(reel.sprites[i]);
+      }
+      return newArray;
+    });
+    /**
+     * create diagonals if we have square grid
+     * if (reelsLen === this.reels[0].sprites.length - 1 && reelsLen % 2 === 1) {
+     * console.log(
+     *   'ADDING DIAGONAL WIN LINES TO CHECK',
+     *   'oddly, this does not need to be called in order to check'
+     *   );
+     *   const backSlash = [],
+     *   slashDiag = [];
+     *   for (let i = 0; i < reelsLen; i++) {
+     *     backSlash.push(this.reels[i].sprites[i + 1]);
+     *     slashDiag.push(this.reels[reelsLen - 1 - i].sprites[i + 1]);
+     *   }
+     *   onScreenReels.push(backSlash, slashDiag);
+     * }
+     */
 
     const winLines: WinLines = {
       rowTop: 0,
@@ -152,9 +157,9 @@ export default class ReelsContainer {
         2 * this.checkForWin(this.reels.map((reel) => reel.sprites[i + 1]));
     }
     // check for wins in vertical and possible diagonals
-    // for (let i = 0; i < onScreenReels.length; i++) {
-    //   winLines[lineOrder[3 + i]] += this.checkForWin(onScreenReels[i]);
-    // }
+    for (let i = 0; i < onScreenReels.length; i++) {
+      winLines[lineOrder[3 + i]] += this.checkForWin(onScreenReels[i]);
+    }
     // sum all wins for a single win value
     for (const entry of lineOrder) {
       winLines.winTotal += winLines[entry];
@@ -190,25 +195,28 @@ export default class ReelsContainer {
     //   }
     // }
 
-    if (combination.size === 1 && !combination.has('SYM1')) return 1;
+    if (symbols.length === 3) {
+      if (combination.size === 1 && !combination.has('SYM1')) return 0.5;
+      return 0;
+    }
 
-    if (combination.size === 2 && combination.has('SYM1')) return 1;
+    if (combination.size === 1 && !combination.has('SYM1')) return 5;
+    if (combination.size === 2 && combination.has('SYM1')) return 3;
 
     // with 7, let's add partial wins if we get close
-    if (combination.size === 2) return 0.5;
-
-    if (combination.size === 3 && combination.has('SYM1')) return 0.5;
+    if (combination.size === 2) return 1;
+    if (combination.size === 3 && combination.has('SYM1')) return 1;
 
     return 0;
   }
 
-  private blessRNG() {
-    this.reels.forEach((reel) => {
-      reel.sprites[0] = new PIXI.Sprite(
-        this.texturesToAdd[
-          Math.floor(Math.random() * this.texturesToAdd.length)
-        ]
-      );
-    });
-  }
+  // private blessRNG() {
+  //   this.reels.forEach((reel) => {
+  //     reel.sprites[0] = new PIXI.Sprite(
+  //       this.texturesToAdd[
+  //         Math.floor(Math.random() * this.texturesToAdd.length)
+  //       ]
+  //     );
+  //   });
+  // }
 }
