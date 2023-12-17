@@ -36,23 +36,25 @@ export default class VictoryScreen {
 
     const rect = new PIXI.Graphics();
     rect.beginFill(0x02474e, 0.85);
-    rect.drawRect(0, 0, 1100, 400);
-    rect.x = (appWidth - rect.width) / 2 - 100;
-    rect.y = (appHeight - rect.height) / 2;
+    rect.drawRect(0, 0, 300, 200);
+    rect.x = appWidth - rect.width - 25;
+    rect.y = 10;
     rect.endFill();
 
     const style = new PIXI.TextStyle({
       fontFamily: 'Courier',
-      fontSize: 96,
+      fontSize: 40,
       fill: '#ff33ee',
     });
 
     const text = new PIXI.Text(
-      `YOU WON ${winTotal} COIN${winTotal === 1 ? '' : 'S'}!`,
+      `${winTotal.toString().length > 1 ? ' ' : ''}YOU WON \n${winTotal} COIN${
+        winTotal === 1 ? '' : 'S'
+      }!`,
       style
     );
-    text.x = (appWidth - text.width) / 2 - 100;
-    text.y = (appHeight - text.height) / 2;
+    text.x = appWidth - rect.width - 25 + (rect.width - text.width) / 2;
+    text.y = 10 + (rect.height - text.height) / 2;
 
     this.container.addChild(rect, text, this.overlay);
   }

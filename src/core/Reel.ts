@@ -20,7 +20,7 @@ export default class Reel {
   }
 
   private generate(position: number) {
-    const REEL_WIDTH = 200;
+    const REEL_WIDTH = 220;
     const REEL_OFFSET_BETWEEN = 0;
     const NUMBER_OF_ROWS = 3; // +1 offscreen above
     this.container.x = position * REEL_WIDTH;

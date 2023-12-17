@@ -4,7 +4,7 @@ export default class JackpotScreen {
   public container: PIXI.Container;
   private overlay: PIXI.Graphics;
 
-  constructor(app: PIXI.Application, winTotal: number) {
+  constructor(app: PIXI.Application) {
     this.container = new PIXI.Container();
     this.generate(app.screen.width, app.screen.height);
   }

@@ -9,6 +9,7 @@ export default class Scoreboard {
   private money: number = 10;
   public wager: number = 2;
   private playBtn: PlayButton;
+  public hitTheJackpot = false;
 
   constructor(app: PIXI.Application, playBtn: PlayButton) {
     this.container = new PIXI.Container();
@@ -44,6 +45,8 @@ export default class Scoreboard {
     } else {
       this.outOfMoney = true;
     }
+
+    if (this.money >= 1000) this.hitTheJackpot = true;
   }
 
   private generate(appWidth: number, appHeight: number) {
@@ -63,11 +66,7 @@ export default class Scoreboard {
 
     const rect = new PIXI.Graphics();
     rect.beginFill(0x02474e, 0.6);
-    const rectHeight =
-      this.winTotal.height +
-      this.wagerText.height +
-      // this.winAmountText.height +
-      25;
+    const rectHeight = this.winTotal.height + this.wagerText.height + 25;
     rect.drawRect(0, 0, 160, rectHeight);
     rect.endFill();
 

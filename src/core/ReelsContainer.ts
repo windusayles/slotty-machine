@@ -23,7 +23,7 @@ export default class ReelsContainer {
   public readonly reels: Array<Reel> = [];
   public readonly container: PIXI.Container;
   private texturesToAdd: PIXI.Texture[];
-  private REEL_OFFSET_LEFT = 20;
+  private REEL_OFFSET_LEFT = 50;
   private NUMBER_OF_REELS = 7;
 
   constructor(app: PIXI.Application) {
@@ -40,7 +40,7 @@ export default class ReelsContainer {
     texturePool.push(...animations.kinkInc);
 
     // total number of CHARACTERS minus the 1 WILD and any others added at top
-    let addTextures = 13;
+    let addTextures = 3;
 
     while (addTextures > 0) {
       const index = Math.floor(Math.random() * texturePool.length);
@@ -62,7 +62,7 @@ export default class ReelsContainer {
           texturesToAdd[Math.floor(Math.random() * texturesToAdd.length)]
         );
         sprite.height = 340;
-        sprite.width = 180;
+        sprite.width = 170;
         availableSprites.push(sprite);
       }
 
@@ -153,8 +153,9 @@ export default class ReelsContainer {
     ];
     // check for wins in top, mid, & bottom
     for (let i = 0; i < this.reels[0].sprites.length - 1; i++) {
-      winLines[lineOrder[i]] +=
-        2 * this.checkForWin(this.reels.map((reel) => reel.sprites[i + 1]));
+      winLines[lineOrder[i]] += this.checkForWin(
+        this.reels.map((reel) => reel.sprites[i + 1])
+      );
     }
     // check for wins in vertical and possible diagonals
     for (let i = 0; i < onScreenReels.length; i++) {
@@ -196,15 +197,15 @@ export default class ReelsContainer {
     // }
 
     if (symbols.length === 3) {
-      if (combination.size === 1 && !combination.has('SYM1')) return 0.5;
+      if (combination.size === 1 && !combination.has('SYM1')) return 1;
       return 0;
     }
 
-    if (combination.size === 1 && !combination.has('SYM1')) return 5;
-    if (combination.size === 2 && combination.has('SYM1')) return 3;
+    if (combination.size === 1 && !combination.has('SYM1')) return 10;
+    if (combination.size === 2 && combination.has('SYM1')) return 5;
 
     // with 7, let's add partial wins if we get close
-    if (combination.size === 2) return 1;
+    if (combination.size === 2) return 2;
     if (combination.size === 3 && combination.has('SYM1')) return 1;
 
     return 0;

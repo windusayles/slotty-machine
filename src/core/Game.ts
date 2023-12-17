@@ -7,6 +7,7 @@ import Scoreboard from './Scoreboard';
 import VictoryScreen from './VictoryScreen';
 import WinLineScreen from './WinLineScreen';
 import LoseScreen from './LoseScreen';
+import JackpotScreen from './Jackpot';
 
 export default class Game {
   public app: PIXI.Application;
@@ -16,6 +17,7 @@ export default class Game {
   private victoryScreen: VictoryScreen;
   private winLineScreen: WinLineScreen;
   private loseScreen: LoseScreen;
+  private jackpotScreen: JackpotScreen;
 
   constructor() {
     this.app = new PIXI.Application({
@@ -34,6 +36,7 @@ export default class Game {
     this.createScoreboard();
     // this.createVictoryScreen();
     this.createLoseScreen();
+    this.createJackpotScreen();
   }
 
   // private createScene() {
@@ -84,6 +87,11 @@ export default class Game {
     this.app.stage.addChild(this.loseScreen.container);
   }
 
+  private createJackpotScreen() {
+    this.jackpotScreen = new JackpotScreen(this.app);
+    this.app.stage.addChild(this.jackpotScreen.container);
+  }
+
   handleStart() {
     this.scoreboard.decrement();
     this.playBtn.setDisabled();
@@ -92,17 +100,22 @@ export default class Game {
 
   private processSpinResult(spinResult: WinLines) {
     this.scoreboard.increment(spinResult.winTotal);
-    if (spinResult.winTotal) {
-      this.createVictoryScreen(spinResult.winTotal * this.scoreboard.wager);
-      this.victoryScreen.show();
-      // add a highlight for each win line
-      this.createWinLineScreen(spinResult);
-    }
-
-    if (!this.scoreboard.outOfMoney) {
-      this.playBtn.setEnabled();
+    if (this.scoreboard.hitTheJackpot) {
+      this.playBtn.setDisabled();
+      this.jackpotScreen.show();
     } else {
-      this.loseScreen.show();
+      if (spinResult.winTotal) {
+        this.createVictoryScreen(spinResult.winTotal * this.scoreboard.wager);
+        this.victoryScreen.show();
+        // add a highlight for each win line
+        // this.createWinLineScreen(spinResult);
+      }
+
+      if (!this.scoreboard.outOfMoney) {
+        this.playBtn.setEnabled();
+      } else {
+        this.loseScreen.show();
+      }
     }
   }
 }
