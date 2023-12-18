@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import Reel from './Reel';
 import { animations } from '../assets/atlas.json';
+import { animations as kinkAnims } from '../assets/kinkIncSpriteSheet.json';
 
 export interface WinLines {
   rowTop: number;
@@ -39,13 +40,23 @@ export default class ReelsContainer {
     texturePool.splice(0, 1);
     texturePool.push(...animations.kinkInc);
 
+    // below adds ALL kink images
+    // Object.values(kinkAnims).forEach((list) => {
+    //   let scenes = list.length;
+    //   while (scenes) {
+    //     texturePool.push(list[--scenes]);
+    //   }
+    // });
+
     // total number of CHARACTERS minus the 1 WILD and any others added at top
     let addTextures = 3;
 
     while (addTextures > 0) {
       const index = Math.floor(Math.random() * texturePool.length);
       if (index > 5) {
-        texturesToAdd.push(app.loader.resources[texturePool[index]]!.texture!);
+        texturesToAdd.push(
+          app.loader.resources.kinkInc!.textures![texturePool[index]]
+        );
       } else {
         texturesToAdd.push(
           app.loader.resources.atlas!.textures![texturePool[index]]
