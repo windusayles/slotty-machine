@@ -25,6 +25,8 @@ export default class Game {
       height: 1080,
       backgroundAlpha: 0,
     });
+    // before we turn on app resize, all hardcoded values for image sizes needs to be set as a percentage of app height/width
+    // this.app.resizeTo = window;
     window.document.body.appendChild(this.app.view);
     new Loader(this.app, this.init.bind(this));
   }
@@ -101,8 +103,7 @@ export default class Game {
   private processSpinResult(spinResult: WinLines) {
     this.scoreboard.increment(spinResult.winTotal);
     if (this.scoreboard.hitTheJackpot) {
-      this.playBtn.setDisabled();
-      this.jackpotScreen.show();
+      this.processConcentration();
     } else {
       if (spinResult.winTotal) {
         this.createVictoryScreen(spinResult.winTotal * this.scoreboard.wager);
@@ -117,5 +118,13 @@ export default class Game {
         this.loseScreen.show();
       }
     }
+  }
+
+  private processConcentration() {
+    this.playBtn.setDisabled();
+    this.jackpotScreen.show();
+    this.reelsContainer.container.visible = false;
+    this.scoreboard.container.visible = false;
+    this.playBtn.hide();
   }
 }
