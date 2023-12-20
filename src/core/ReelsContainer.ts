@@ -1,7 +1,6 @@
 import * as PIXI from 'pixi.js';
 import Reel from './Reel';
 import { animations } from '../assets/atlas.json';
-import { animations as kinkAnims } from '../assets/kinkIncSpriteSheet.json';
 
 export interface WinLines {
   rowTop: number;
@@ -64,6 +63,10 @@ export default class ReelsContainer {
       }
       addTextures -= 1;
     }
+    const dynamicWidth = (document.body.clientWidth - 400) / 7 - 20;
+    const dynamicHeight = (document.body.clientHeight - 100) / 3;
+    const ratio = dynamicWidth / dynamicHeight;
+    console.log(ratio);
 
     for (let i = 0; i < this.NUMBER_OF_REELS; i++) {
       const availableSprites: Array<PIXI.Sprite> = [];
@@ -72,8 +75,18 @@ export default class ReelsContainer {
         const sprite = new PIXI.Sprite(
           texturesToAdd[Math.floor(Math.random() * texturesToAdd.length)]
         );
-        sprite.height = 340;
-        sprite.width = 170;
+        // set sprite height/width by smalelr of the ratio
+        if (ratio > 6 / 11) {
+          // height is smaller
+          sprite.height = dynamicHeight;
+          sprite.width = sprite.height / 2;
+        } else {
+          // width is smalelr
+          sprite.width = dynamicWidth;
+          sprite.height = sprite.width * 2;
+        }
+        // sprite.width = 170;
+        // sprite.height = 340;
         availableSprites.push(sprite);
       }
 

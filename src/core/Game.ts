@@ -21,8 +21,11 @@ export default class Game {
 
   constructor() {
     this.app = new PIXI.Application({
-      width: 1920,
-      height: 1080,
+      width: document.body.clientWidth,
+      height: document.body.clientHeight,
+      // full screen TV values below
+      // width: 1920,
+      // height: 1080,
       backgroundAlpha: 0,
     });
     // before we turn on app resize, all hardcoded values for image sizes needs to be set as a percentage of app height/width

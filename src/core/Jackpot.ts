@@ -145,10 +145,26 @@ export default class JackpotScreen {
         };
         sprite.buttonMode = true;
         sprite.interactive = true;
-        sprite.width = 100;
-        sprite.height = 200;
-        sprite.position.x = 400 + i * 110;
-        sprite.position.y = 50 + j * 210;
+
+        const dynamicWidth = (app.screen.width - 100) / 6;
+        const dynamicHeight = (app.screen.height - 100) / 4;
+        const ratio = dynamicWidth / dynamicHeight;
+
+        if (ratio < 0.75) {
+          sprite.width = dynamicWidth - 10;
+          sprite.height = sprite.width * 2;
+        } else {
+          sprite.height = dynamicHeight - 10;
+          sprite.width = sprite.height / 2;
+        }
+        sprite.position.x =
+          (app.screen.width - sprite.width * 6) / 2 +
+          i * (sprite.width + 10) -
+          25;
+        sprite.position.y =
+          (app.screen.height - sprite.height * 4) / 2 +
+          j * (sprite.height + 10) -
+          25;
         sprite.tint = 0x000000;
         sprite.alpha = 0.5;
 
@@ -177,12 +193,15 @@ export default class JackpotScreen {
                     // this should be a final win condition
                     if (container.children.length === 2) {
                       this.hide();
+                      // remove canvas/game
+                      const canvas = document.body.children[2];
+                      document.body.removeChild(canvas);
+
                       const htmlContent = document.querySelector(
                         '#details'
                       ) as HTMLElement;
                       htmlContent.innerHTML = `<h1>You friggin did it, go get your reward!</h1>`;
-                      htmlContent.className = '';
-                      app.destroy();
+                      htmlContent.className = 'flex-center';
                     }
                   }, 1000);
                 } else {
