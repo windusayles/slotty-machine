@@ -15,7 +15,7 @@ export default class Scoreboard {
     this.container = new PIXI.Container();
     this.playBtn = playBtn;
     this.generate(app.screen.width, app.screen.height);
-    this.handleWager(app);
+    this.handleWager();
   }
 
   decrement() {
@@ -75,19 +75,18 @@ export default class Scoreboard {
     this.container.addChild(rect, this.winTotal, this.wagerText);
   }
 
-  private handleWager(app: PIXI.Application) {
+  private handleWager() {
     document.addEventListener('keydown', (key) => {
-      if (key.code === 'ArrowUp' && this.wager < this.money) {
+      if (key.key === 'w' && this.wager < this.money) {
         this.wager += 1;
-        this.generate(app.screen.width, app.screen.height);
-      } else if (key.code === 'ArrowDown' && this.wager > 1) {
+      } else if (key.key === 's' && this.wager > 1) {
         this.wager -= 1;
         if (this.outOfMoney === true && this.wager <= this.money) {
           this.outOfMoney = false;
           this.playBtn.setEnabled();
         }
-        this.generate(app.screen.width, app.screen.height);
       }
+      this.wagerText.text = `Wager: ${this.wager}`;
     });
   }
 }
