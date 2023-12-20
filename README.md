@@ -37,6 +37,9 @@ A simple slot machine game for my Burning Man camp. Credit for the base of this 
      - A mix of Wild(s) and only 3 other symbols is a minimum win, 1x
      - **Note:** 7 Wilds is WAY too wild and will reset the game
 2. Controls:
-   - Return: Start new game, can be activated at any time
+   - Return/Enter: Start new game, can be activated at any time
    - Space bar: Activates lever to spin reels; inactive when lever is inactive
-   - W/S keys: Increase/Decrease the wager amount while a game is active; amount is constrained between 1 and current Total
+   - Adjust the wager amount while a game is active
+     - Wager cannot go below 1 or above current Total
+     - Use `+` (or `=`) to increase
+     - Use `-` to decrease

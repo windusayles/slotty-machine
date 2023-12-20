@@ -77,9 +77,9 @@ export default class Scoreboard {
 
   private handleWager() {
     document.addEventListener('keydown', (key) => {
-      if (key.key === 'w' && this.wager < this.money) {
+      if ((key.key === '=' || key.key === '+') && this.wager < this.money) {
         this.wager += 1;
-      } else if (key.key === 's' && this.wager > 1) {
+      } else if (key.key === '-' && this.wager > 1) {
         this.wager -= 1;
         if (this.outOfMoney === true && this.wager <= this.money) {
           this.outOfMoney = false;
