@@ -37,7 +37,7 @@ export default class ReelsContainer {
     // keep SYM1 as wild card
     const texturePool = [...animations.SYM];
     texturePool.splice(0, 1);
-    texturePool.push(...animations.kinkInc);
+    // texturePool.push(...animations.kinkInc); // just add specific list of kinkAnims
 
     // below adds ALL kink images
     // Object.values(kinkAnims).forEach((list) => {
