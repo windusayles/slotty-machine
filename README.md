@@ -21,18 +21,22 @@ A simple slot machine game for my Burning Man camp. Credit for the base of this 
 
 ---
 
-### Features
+### Instructions
 
 1. Winning:
+   - Wager Multiplier
+     - Your wager amount will deduct from Total
+     - Win amount is 10x, 5x, 2x, or 1x wager amount
    - Vertically
-     - 3 Same symbols in Column
-     - 1-2 Same symbols and others Wild
-     - _**Note:**_ 3 Wilds is TOO wild and gives no points
+     - 3 Same symbols in Column is minimum win, 1x
+     - No wild bonus
    - Horizontally
-     - 5 Same symbols in Row
-     - 1-4 Same symbols and others Wild
-     - **Note:** 5 Wilds is WAY too wild and will reset the game
+     - 7 Same symbols in Row is best win, 10x
+     - 1-6 Same symbols and others Wild is next best win, 5x
+     - A mix of Wild(s) and only 2 other symbols is minor win, 2x
+     - A mix of Wild(s) and only 3 other symbols is a minimum win, 1x
+     - **Note:** 7 Wilds is WAY too wild and will reset the game
 2. Controls:
    - Return: Start new game, can be activated at any time
    - Space bar: Activates lever to spin reels; inactive when lever is inactive
-   - Up/Down arrows: Increase/Decrease the wager amount while a game is active; amount is set between 1 and current money
+   - W/S keys: Increase/Decrease the wager amount while a game is active; amount is constrained between 1 and current Total
