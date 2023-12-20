@@ -7,6 +7,7 @@ document.addEventListener('keydown', (key) => {
     createNewGame();
   }
 });
+
 document.addEventListener('pointerup', clickStartOnce);
 
 function clickStartOnce() {
@@ -14,12 +15,12 @@ function clickStartOnce() {
   document.removeEventListener('pointerup', clickStartOnce);
 }
 
-let gameHolder: Game;
+let currentGame: Game;
 
 function createNewGame() {
-  if (gameHolder) gameHolder.app.destroy(true, { children: true });
+  if (currentGame) currentGame.app.destroy(true, { children: true });
   const details = document.querySelector('#details') as Element;
   details.className = 'hide';
 
-  gameHolder = new Game();
+  currentGame = new Game();
 }
