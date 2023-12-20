@@ -3,6 +3,7 @@ import Game from './core/Game';
 document.addEventListener('keydown', (key) => {
   if (key.code === 'Enter') {
     document.querySelector('#hintText')?.remove();
+    document.removeEventListener('pointerup', clickStartOnce);
     createNewGame();
   }
 });
