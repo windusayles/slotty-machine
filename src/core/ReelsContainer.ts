@@ -66,7 +66,6 @@ export default class ReelsContainer {
     const dynamicWidth = (document.body.clientWidth - 400) / 7 - 20;
     const dynamicHeight = (document.body.clientHeight - 100) / 3;
     const ratio = dynamicWidth / dynamicHeight;
-    console.log(ratio);
 
     for (let i = 0; i < this.NUMBER_OF_REELS; i++) {
       const availableSprites: Array<PIXI.Sprite> = [];

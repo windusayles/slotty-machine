@@ -4,12 +4,12 @@ import PlayButton from './PlayButton';
 export default class Scoreboard {
   public container: PIXI.Container;
   public outOfMoney = false;
+  public wager: number = 2;
+  public hitTheJackpot = false;
+  private money: number = 10;
   private winTotal: PIXI.Text;
   private wagerText: PIXI.Text;
-  private money: number = 10;
-  public wager: number = 2;
   private playBtn: PlayButton;
-  public hitTheJackpot = false;
 
   constructor(app: PIXI.Application, playBtn: PlayButton) {
     this.container = new PIXI.Container();

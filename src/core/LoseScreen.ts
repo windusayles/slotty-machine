@@ -49,7 +49,14 @@ export default class LoseScreen {
       fill: '#eeeeee',
     });
 
-    const text = new PIXI.Text('Aw, you lost.  Try again!', style);
+    const text = new PIXI.Text('Aw, you lost.\n Try again!', style);
+    if (text.width > rect.width - 50) {
+      const newWidth = rect.width - 50;
+      const ratio = newWidth / text.width;
+      const newHeight = text.height * ratio;
+      text.width = newWidth;
+      text.height = newHeight;
+    }
 
     text.x = (appWidth - text.width) / 2;
     text.y = (appHeight - text.height) / 2;
