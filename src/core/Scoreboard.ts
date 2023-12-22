@@ -15,7 +15,17 @@ export default class Scoreboard {
     this.container = new PIXI.Container();
     this.playBtn = playBtn;
     this.generate(app.screen.width, app.screen.height);
-    this.handleWager();
+    document.addEventListener('keydown', (key) => {
+      switch (key.key) {
+        case '+':
+        case '-':
+        case '=':
+          this.handleWager(key.key);
+          break;
+        default:
+          break;
+      }
+    });
   }
 
   decrement() {
@@ -70,23 +80,24 @@ export default class Scoreboard {
     rect.drawRect(0, 0, 160, rectHeight);
     rect.endFill();
 
+    rect.interactive = true;
+    rect.on('mousedown', () => this.handleWager('+'));
+
     this.container.x = appWidth - rect.width - 150;
     this.container.y = appHeight / 2 - 25;
     this.container.addChild(rect, this.winTotal, this.wagerText);
   }
 
-  private handleWager() {
-    document.addEventListener('keydown', (key) => {
-      if ((key.key === '=' || key.key === '+') && this.wager < this.money) {
-        this.wager += 1;
-      } else if (key.key === '-' && this.wager > 1) {
-        this.wager -= 1;
-        if (this.outOfMoney === true && this.wager <= this.money) {
-          this.outOfMoney = false;
-          this.playBtn.setEnabled();
-        }
+  private handleWager(input: string) {
+    if ((input === '=' || input === '+') && this.wager < this.money) {
+      this.wager += 1;
+    } else if (input === '-' && this.wager > 1) {
+      this.wager -= 1;
+      if (this.outOfMoney === true && this.wager <= this.money) {
+        this.outOfMoney = false;
+        this.playBtn.setEnabled();
       }
-      this.wagerText.text = `Wager: ${this.wager}`;
-    });
+    }
+    this.wagerText.text = `Wager: ${this.wager}`;
   }
 }

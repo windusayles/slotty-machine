@@ -32,7 +32,7 @@ export default class Reel {
       symbol.x = position * REEL_OFFSET_BETWEEN + widthDiff / 2;
 
       const yOffset = (this.appHeight - symbol.height * 3) / 3;
-      const cellHeight = symbol.height + (yOffset ? yOffset : 0); // avoid negative values when testing larger images
+      const cellHeight = symbol.height + yOffset;
       const paddingTop = yOffset / 2;
       symbol.y = (i - 1) * cellHeight + paddingTop;
       this.sprites.push(symbol);
