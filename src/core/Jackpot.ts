@@ -145,12 +145,17 @@ export default class JackpotScreen {
         };
         sprite.buttonMode = true;
         sprite.interactive = true;
+        sprite.on('mouseenter', () =>
+          console.log(sprite._texture.textureCacheIds[0])
+        );
+        sprite.on('mouseleave', () => console.log('exit'));
 
         const dynamicWidth = (app.screen.width - 100) / 6;
         const dynamicHeight = (app.screen.height - 100) / 4;
-        const ratio = dynamicWidth / dynamicHeight;
+        const ratio = app.screen.width / app.screen.height;
 
-        if (ratio < 0.75) {
+        // 900h x 700w, or 8 x 6?
+        if (ratio <= 0.75) {
           sprite.width = dynamicWidth - 10;
           sprite.height = sprite.width * 2;
         } else {
