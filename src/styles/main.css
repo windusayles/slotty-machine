@@ -22,18 +22,21 @@ h1 {
   color: rgb(240, 240, 240);
 }
 
+ul h2 {
+  margin-inline-start: -1em;
+  margin-block-end: 0.4em;
+}
+
 .flex-center {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
 .hide {
   display: none;
 }
 
-p {
-  margin: 0;
+.instructions {
   font-size: larger;
-  text-align: center;
+  margin: 0;
 }

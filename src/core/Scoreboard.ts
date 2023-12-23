@@ -81,7 +81,7 @@ export default class Scoreboard {
     rect.endFill();
 
     rect.interactive = true;
-    rect.on('mousedown', () => this.handleWager('+'));
+    rect.on('mousedown', () => this.handleWager('max'));
 
     this.container.x = appWidth - rect.width - 150;
     this.container.y = appHeight / 2 - 25;
@@ -89,7 +89,9 @@ export default class Scoreboard {
   }
 
   private handleWager(input: string) {
-    if ((input === '=' || input === '+') && this.wager < this.money) {
+    if (input === 'max') {
+      this.wager = this.money;
+    } else if ((input === '=' || input === '+') && this.wager < this.money) {
       this.wager += 1;
     } else if (input === '-' && this.wager > 1) {
       this.wager -= 1;

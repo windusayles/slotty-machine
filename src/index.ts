@@ -19,8 +19,8 @@ let currentGame: Game;
 
 function createNewGame() {
   if (currentGame) currentGame.app.destroy(true, { children: true });
-  const details = document.querySelector('#details') as Element;
-  details.className = 'hide';
+  const welcome = document.querySelector('#welcome') as Element;
+  welcome.className = 'hide';
 
   currentGame = new Game();
 }
