@@ -123,8 +123,8 @@ export default class JackpotScreen {
       }
     }
 
+    //shuffle
     for (let i = 0; i < 48; i++) {
-      //shuffle
       const from = Math.floor(Math.random() * 24);
       const to = Math.floor(Math.random() * 24);
       const tmp: number = chosenTiles[from];
@@ -145,16 +145,11 @@ export default class JackpotScreen {
         };
         sprite.buttonMode = true;
         sprite.interactive = true;
-        sprite.on('mouseenter', () =>
-          console.log(sprite._texture.textureCacheIds[0])
-        );
-        sprite.on('mouseleave', () => console.log('exit'));
 
         const dynamicWidth = (app.screen.width - 100) / 6;
         const dynamicHeight = (app.screen.height - 100) / 4;
         const ratio = app.screen.width / app.screen.height;
 
-        // 900h x 700w, or 8 x 6?
         if (ratio <= 0.75) {
           sprite.width = dynamicWidth - 10;
           sprite.height = sprite.width * 2;
@@ -174,6 +169,18 @@ export default class JackpotScreen {
         sprite.alpha = 0.5;
 
         this.container.addChild(sprite);
+
+        const highlight = (input: string) => {
+          if (!tile.isSelected) {
+            if (input !== 'exit') {
+              // add highlight to sprite
+              sprite.alpha = 0.65;
+            } else {
+              // remove highlight
+              sprite.alpha = 0.5;
+            }
+          }
+        };
 
         const listenerFunction = () => {
           console.log(sprite._texture.textureCacheIds[0]); // for easily identifying who we clicked on in dev mode
@@ -228,6 +235,11 @@ export default class JackpotScreen {
         };
 
         sprite.on('mousedown', listenerFunction);
+        sprite.on('pointerover', () => {
+          const name = sprite._texture.textureCacheIds[0];
+          highlight(name);
+        });
+        sprite.on('pointerout', () => highlight('exit'));
       }
     }
   }
