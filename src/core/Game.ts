@@ -7,7 +7,7 @@ import Scoreboard from './Scoreboard';
 import VictoryScreen from './VictoryScreen';
 import WinLineScreen from './WinLineScreen';
 import LoseScreen from './LoseScreen';
-import JackpotScreen from './Jackpot';
+import MemoryScreen from './Memory';
 
 export default class Game {
   public app: PIXI.Application;
@@ -17,7 +17,7 @@ export default class Game {
   private victoryScreen: VictoryScreen;
   private winLineScreen: WinLineScreen;
   private loseScreen: LoseScreen;
-  private jackpotScreen: JackpotScreen;
+  private memoryScreen: MemoryScreen;
 
   constructor() {
     this.app = new PIXI.Application({
@@ -41,7 +41,7 @@ export default class Game {
     this.createScoreboard();
     // this.createVictoryScreen();
     this.createLoseScreen();
-    this.createJackpotScreen();
+    this.createMemoryScreen();
   }
 
   // private createScene() {
@@ -92,9 +92,9 @@ export default class Game {
     this.app.stage.addChild(this.loseScreen.container);
   }
 
-  private createJackpotScreen() {
-    this.jackpotScreen = new JackpotScreen(this.app);
-    this.app.stage.addChild(this.jackpotScreen.container);
+  private createMemoryScreen() {
+    this.memoryScreen = new MemoryScreen(this.app);
+    this.app.stage.addChild(this.memoryScreen.container);
   }
 
   handleStart() {
@@ -106,7 +106,7 @@ export default class Game {
   private processSpinResult(spinResult: WinLines) {
     this.scoreboard.increment(spinResult.winTotal);
     if (this.scoreboard.hitTheJackpot) {
-      this.processConcentration();
+      this.playMemoryGame();
     } else {
       if (spinResult.winTotal) {
         this.createVictoryScreen(spinResult.winTotal * this.scoreboard.wager);
@@ -123,9 +123,9 @@ export default class Game {
     }
   }
 
-  private processConcentration() {
+  private playMemoryGame() {
     this.playBtn.setDisabled();
-    this.jackpotScreen.show();
+    this.memoryScreen.show();
     this.reelsContainer.container.visible = false;
     this.scoreboard.container.visible = false;
     this.playBtn.hide();

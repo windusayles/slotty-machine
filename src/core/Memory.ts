@@ -7,23 +7,19 @@ interface Tile {
   sprite: PIXI.Sprite;
 }
 
-export default class JackpotScreen {
+export default class MemoryScreen {
   public container: PIXI.Container;
   private overlay: PIXI.Graphics;
 
   constructor(app: PIXI.Application) {
     this.container = new PIXI.Container();
     this.generate(app.screen.width, app.screen.height);
-    this.playConcentration(app);
+    this.setupMemoryGame(app);
   }
 
   show() {
     this.container.visible = true;
-    const id = window.setTimeout(this.hide.bind(this), 300000); // 5 minutes
-    const handler = () => {
-      window.clearTimeout(id);
-      this.hide();
-    };
+    this.initMemoryKeyboardControls();
   }
 
   hide() {
@@ -48,21 +44,10 @@ export default class JackpotScreen {
     rect.y = 25;
     rect.endFill();
 
-    // const style = new PIXI.TextStyle({
-    //   fontFamily: 'Courier',
-    //   fontSize: 96,
-    //   fill: '#ff33ee',
-    // });
-
-    // const text = new PIXI.Text('JACKPOT, BABY!', style);
-    // text.x = (appWidth - text.width) / 2;
-    // text.y = (appHeight - text.height) / 2;
-
-    // add back text between rect and overlay
     this.container.addChild(rect, this.overlay);
   }
 
-  public playConcentration(app: PIXI.Application) {
+  public setupMemoryGame(app: PIXI.Application) {
     const texturePool: string[] = [];
     let animationCount = 0;
     Object.values(kinkAnims).forEach((list) => {
@@ -243,4 +228,6 @@ export default class JackpotScreen {
       }
     }
   }
+
+  private initMemoryKeyboardControls() {}
 }
