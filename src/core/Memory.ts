@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { animations as kinkAnims } from '../assets/kinkIncSpriteSheet.json';
+import { animations as kinkAnims } from '../assets/kinkAnim.json';
 
 interface Tile {
   isSelected: boolean;

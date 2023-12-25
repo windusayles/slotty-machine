@@ -10,9 +10,9 @@ export default class PlayButton {
 
   constructor(app: PIXI.Application, onClick: () => void) {
     this.onClick = onClick;
-    this.activeTexture = app.loader.resources!.atlas.textures!['LVR_Spin.png'];
+    this.activeTexture = app.loader.resources!.atlas.textures!['leverUP.png'];
     this.disabledTexture =
-      app.loader.resources!.atlas.textures!['LVR_Spin_d.png'];
+      app.loader.resources!.atlas.textures!['leverDOWN.png'];
     this.sprite = new PIXI.Sprite(this.activeTexture);
     this.hide = () => (this.sprite.visible = false);
     this.show = () => (this.sprite.visible = true);

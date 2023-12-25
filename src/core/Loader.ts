@@ -17,7 +17,7 @@ export default class Loader {
 
   private loadAssets() {
     this.loader.add('atlas', './assets/atlas.json');
-    this.loader.add('kinkInc', './assets/kinkIncSpriteSheet.json');
+    this.loader.add('kinkInc', './assets/kinkAnim.json');
   }
 
   private generateLoadingScreen(appWidth: number, appHeight: number) {
